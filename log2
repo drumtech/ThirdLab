@@ -1,0 +1,245 @@
+Script started on Fri 03 Aug 2018 06:50:17 PM MSK
+[root@centos-otus cosa]# mkdit [K[Kr /home/cosa/Snap
+[root@centos-otus cosa]# lvcte[K[Kreate [K[K[K[K[K[K[K[K[Kvgdisplay 
+  --- Volume group ---
+  VG Name               centos
+  System ID             
+  Format                lvm2
+  Metadata Areas        4
+  Metadata Sequence No  10
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                4
+  Open LV               4
+  Max PV                0
+  Cur PV                4
+  Act PV                4
+  VG Size               <58.99 GiB
+  PE Size               4.00 MiB
+  Total PE              15101
+  Alloc PE / Size       8962 / <35.01 GiB
+  Free  PE / Size       6139 / 23.98 GiB
+  VG UUID               lqcb0r-oYKS-Q8Uk-ZY15-3tWu-lWA4-PQXcxV
+   
+[root@centos-otus cosa]# lvdisplay 
+  --- Logical volume ---
+  LV Path                /dev/centos/root
+  LV Name                root
+  VG Name                centos
+  LV UUID                oAMvFx-6xog-wCuw-IcZh-ugAF-C7o6-SNLkeE
+  LV Write Access        read/write
+  LV Creation host, time centos-otus, 2018-08-03 14:08:47 +0300
+  LV Status              available
+  # open                 1
+  LV Size                8.00 GiB
+  Current LE             2048
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:0
+   
+  --- Logical volume ---
+  LV Path                /dev/centos/swap
+  LV Name                swap
+  VG Name                centos
+  LV UUID                UOqInj-ohh7-5PzX-wTHH-Fn4O-FXxI-NY2NBB
+  LV Write Access        read/write
+  LV Creation host, time centos-otus, 2018-08-03 14:08:50 +0300
+  LV Status              available
+  # open                 2
+  LV Size                3.00 GiB
+  Current LE             768
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:1
+   
+  --- Logical volume ---
+  LV Path                /dev/centos/home
+  LV Name                home
+  VG Name                centos
+  LV UUID                gNfRNk-0Gs1-PvzL-sjMW-n9jz-HTWr-dxJ0Em
+  LV Write Access        read/write
+  LV Creation host, time centos-otus, 2018-08-03 17:51:04 +0300
+  LV Status              available
+  # open                 1
+  LV Size                8.00 GiB
+  Current LE             2048
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:2
+   
+  --- Logical volume ---
+  LV Path                /dev/centos/lv_mir
+  LV Name                lv_mir
+  VG Name                centos
+  LV UUID                BMKNu8-mgrO-3Cbo-Pmtv-CTCh-O0PE-v0Z00R
+  LV Write Access        read/write
+  LV Creation host, time centos-otus, 2018-08-03 18:33:00 +0300
+  LV Status              available
+  # open                 1
+  LV Size                8.00 GiB
+  Current LE             2048
+  Mirrored volumes       2
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:7
+   
+[root@centos-otus cosa]# pvs
+  PV         VG     Fmt  Attr PSize  PFree 
+  /dev/sda2  centos lvm2 a--  35.00g <8.00g
+  /dev/sdb   centos lvm2 a--  <8.00g     0 
+  /dev/sdc   centos lvm2 a--  <8.00g <7.99g
+  /dev/sdd   centos lvm2 a--  <8.00g <8.00g
+[root@centos-otus cosa]# pvcreate /dev/sde 
+  Physical volume "/dev/sde" successfully created.
+[root@centos-otus cosa]# vgdisplay 
+  --- Volume group ---
+  VG Name               centos
+  System ID             
+  Format                lvm2
+  Metadata Areas        4
+  Metadata Sequence No  10
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                4
+  Open LV               4
+  Max PV                0
+  Cur PV                4
+  Act PV                4
+  VG Size               <58.99 GiB
+  PE Size               4.00 MiB
+  Total PE              15101
+  Alloc PE / Size       8962 / <35.01 GiB
+  Free  PE / Size       6139 / 23.98 GiB
+  VG UUID               lqcb0r-oYKS-Q8Uk-ZY15-3tWu-lWA4-PQXcxV
+   
+[root@centos-otus cosa]# lvcreate -s -L 5G snap /dev/centos/
+home    lv_mir  root    swap    
+[root@centos-otus cosa]# lvcreate -s -L 5G snap /dev/centos/home 
+  The origin name should include the volume group.
+  Run `lvcreate --help' for more information.
+[root@centos-otus cosa]# lvcreate -s -L 5G snap /dev/centos/home [K[K[K[K[Ksha[K[Knap
+  The origin name should include the volume group.
+  Run `lvcreate --help' for more information.
+[root@centos-otus cosa]# lvcreate -s -L 5G snap /dev/centos/snap[C[1@-[1@n[1@ 
+  Snapshot origin LV snap not found in Volume group centos.
+[root@centos-otus cosa]# lvcreate -s -L 5G -n snap /dev/centos/snap[K[K[K[Khome 
+  Logical volume "snap" created.
+[root@centos-otus cosa]# lvs
+  LV     VG     Attr       LSize Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  home   centos owi-aos--- 8.00g                                                    
+  lv_mir centos rwi-aor--- 8.00g                                    100.00          
+  root   centos -wi-ao---- 8.00g                                                    
+  snap   centos swi-a-s--- 5.00g      home   0.01                                   
+  swap   centos -wi-ao---- 3.00g                                                    
+[root@centos-otus cosa]# cd [K[K[K/dev/centos/l[K[K[K[K[K[K[K[K[K[K[K[K[Kvount [K[K[K[K[K[Kmount /dev/centos/
+home    lv_mir  root    snap    swap    
+[root@centos-otus cosa]# mount /dev/centos/
+home    lv_mir  root    snap    swap    
+[root@centos-otus cosa]# mount /dev/centos/[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Knano /etc/fstab 
+[1;25r[0;10m[4l[?7h[?25h[?0c[39;49m[39;49m[0;10m[H[J[0;10;7m  GNU nano 2.3.1              File: /etc/fstab                                  [4;1H[0;10m#[5d# /etc/fstab[6d# Created by anaconda on Fri Aug  3 14:08:51 2018[7d#[8d# Accessible filesystems, by reference, are maintained under '/dev/disk'[9d# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info[10d#[11d/dev/mapper/centos-root /[11;49Hext4    defaults	1 1[12dUUID=b13857cf-c613-45b9-a2fb-74b16d86650c /boot[12;67Hext4    defau$[13;1H/dev/mapper/centos-swap swap[13;49Hswap    defaults	0 0[14d/dev/centos/home[14;25H/home   ext4    defaults[14;57H0 0[15d/dev/centos/lv_mir /var ext4 defaults 0 0[23;32H[0;10;7m[ Read 13 lines ][24d^G[0;10m Get Help  [0;10;7m^O[0;10m WriteOut  [0;10;7m^R[0;10m Read File [0;10;7m^Y[0;10m Prev Page [0;10;7m^K[0;10m Cut Text  [0;10;7m^C[0;10m Cur Pos[25d[0;10;7m^X[0;10m Exit[14G[0;10;7m^J[0;10m Justify   [0;10;7m^W[0;10m Where Is  [0;10;7m^V[0;10m Next Page [0;10;7m^U[0;10m UnCut Text[0;10;7m^T[0;10m To Spell[3d[4d[5d[6d[7d[8d[9d[10d[11d[12d[13d[14d[15d[16d[A[16d[1;71H[0;10;7mModified[16d[0;10m/dev/ce[23d[K[16;8Hntos/snap . /home/cps  osa/Snap ext4 de[A[A[15d [1P      /var ext4 defaults 0 0[15;25H/var [1P    ext4 defaults 0 0[15;33Hext4 d[1P    defaults 0 0[15;41Hdefault	 0 00 0[K        0 0[16;41H [1P        /home/cosa/Snap ext4 de[16;25H/home/c	sa/Snap	[1P ext4 de[41Gext4 de[17d[16;48Hefaults	0 0[23d[0;10;7mSave modified buffer (ANSWERING "No" WILL DESTROY CHANGES) ?                    [24;1H Y[0;10m Yes[K[25d[0;10;7m N[0;10m No  [14G   [0;10;7m^C[0;10m Cancel[K[23;62H[0;10;7mFile Name to Write: /etc/fstab                              [24d^G[0;10m Get Help[24;21H[0;10;7mM-D[0;10m DOS Format	[0;10;7mM-A[0;10m Append[24;61H[0;10;7mM-B[0;10m Backup File[25d[0;10;7m^C[0;10m Cancel	    [0;10;7mM-M[0;10m Mac Format	[0;10;7mM-P[0;10m Prepend[23;31H[24d[39;49m[0;10m[J[1;71H[0;10;7m        [23;31H[0;10m[1K [0;10;7m[ Wrote 14 lines ][0;10m[K[25;80H[25;1H[root@centos-otus cosa]# nano /etc/fstab lvs[Knano /etc/fstab [K[K[K[K[K[K[K[K[K[K[K[K[K[Kcd[K[K[K[Kls /home/cosa/[K
+log  log2  [0m[01;34mSnap[0m
+[root@centos-otus cosa]# mount[K[K[K[K[Kmkfs.ext4 /dev/centos/
+home    lv_mir  root    snap    swap    
+[root@centos-otus cosa]# mkfs.ext4 /dev/centos/
+home    lv_mir  root    snap    swap    
+[root@centos-otus cosa]# mkfs.ext4 /dev/centos/snap 
+mke2fs 1.42.9 (28-Dec-2013)
+Filesystem label=
+OS type: Linux
+Block size=4096 (log=2)
+Fragment size=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+524288 inodes, 2097152 blocks
+104857 blocks (5.00%) reserved for the super user
+First data block=0
+Maximum filesystem blocks=2147483648
+64 block groups
+32768 blocks per group, 32768 fragments per group
+8192 inodes per group
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/64     done                            
+Writing inode tables:  0/64     done                            
+Creating journal (32768 blocks): done
+Writing superblocks and filesystem accounting information:  0/64     done
+
+[root@centos-otus cosa]# mkfs.ext4 /dev/centos/snap [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kmount -a
+[root@centos-otus cosa]# mc
+[1;25r[4l[25;1H[0;10m[37m[40m[0;10m[39;49m[K[1;25r[4l[0;10m[39m[49m[1;25r[H[J[2;1H[37m[44m┌<─[30m[47m /home/cosa [37m[44m───────────────────.[^]>┐
+│[38C│
+│[30m[46m/..              │UP--DIR│Aug  3 18:18[37m[44m│
+│[1m[37m[44m/.cache          [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 18:23[0;10m[37m[44m│
+│[1m[37m[44m/.config         [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 18:23[0;10m[37m[44m│
+│[1m[37m[44m/.local          [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 18:23[0;10m[37m[44m│
+│[1m[37m[44m/Snap            [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 18:57[0;10m[37m[44m│
+│ .bash_history   │    113│Aug  3 18:45│
+│ log             │ 507904│Aug  3 18:45│
+│ log2            │   8192│Aug  3 18:57│
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+├[38C┤
+│[38C│
+└────────────────── 7899M/7935M (99%) ─┘
+[39m[49mHint: Completion works on all input lines in all dialogs. Just press M-Tab.
+
+[1m[37m[40m 1[0;10m[30m[46mHelp  [1m[37m[40m 2[0;10m[30m[46mMenu  [1m[37m[40m 3[0;10m[30m[46mView  [1m[37m[40m 4[0;10m[30m[46mEdit  [1m[37m[40m 5[0;10m[30m[46mCopy  [1m[37m[40m 6[0;10m[30m[46mRenMov[1m[37m[40m 7[0;10m[30m[46mMkdir [1m[37m[40m 8[0;10m[30m[46mDelete[1m[37m[40m 9[0;10m[30m[46mPullDn[1m[37m[40m10[0;10m[30m[46mQuit[K[23;80H[1;1H  Left     File     Command     Options     Right[K[2;41H[37m[44m┌<─ /home/cosa ───────────────────.[^]>┐[3;2H[1m[33m[44m'n     Name      [0;10m[37m[44m│[1m[33m[44m Size  [0;10m[37m[44m│[1m[33m[44mModify time [0;10m[37m[44m││[1m[33m[44m'n     Name      [0;10m[37m[44m│[1m[33m[44m Size  [0;10m[37m[44m│[1m[33m[44mModify time [0;10m[37m[44m│[4;41H│[1m[37m[44m/..              [0;10m[37m[44m│[1m[37m[44mUP--DIR[0;10m[37m[44m│[1m[37m[44mAug  3 18:18[0;10m[37m[44m│[5;41H│[1m[37m[44m/.cache          [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 18:23[0;10m[37m[44m│[6;41H│[1m[37m[44m/.config         [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 18:23[0;10m[37m[44m│[7;41H│[1m[37m[44m/.local          [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 18:23[0;10m[37m[44m│[8;41H│[1m[37m[44m/Snap            [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 18:57[0;10m[37m[44m│[9;41H│ .bash_history   │    113│Aug  3 18:45│[10;41H│ log             │ 507904│Aug  3 18:45│[11;41H│ log2            │   8192│Aug  3 18:57│[12;41H│                 │       │            │[13;41H│                 │       │            │[14;41H│                 │       │            │[15;41H│                 │       │            │[16;41H│                 │       │            │[17;41H│                 │       │            │[18;41H│                 │       │            │[19;41H│                 │       │            │[20;2H──────────────────────────────────────┤├──────────────────────────────────────┤[21;2HUP--DIR                               ││UP--DIR                               │[22;41H└────────────────── 7899M/7935M (99%) ─┘[24;77H[39m[49m[1K [37m[44m[^][24;1H[39m[49m[root@centos-otus cosa]#[53C[24;26H[7;13H[30m[47m                                                        [8;13H ┌──────────────[34m The Midnight Commander [30m──────────────┐ [9;13H │ Do you really want to quit the Midnight Commander? │ [10;13H ├────────────────────────────────────────────────────┤ [11;13H │                  [46m[ [34mY[30mes ][47m  [ [34mN[30mo ]                   │ [12;13H └────────────────────────────────────────────────────┘ [13;13H                                                        [11;35H[23;7H[39m[49mIf your terminal lacks functions keys, use the ESC+number sequence.[K[23;80H[7;13H[1m[37m[44m      [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 18:23[0;10m[37m[44m││[1m[37m[44m/.local          [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mA[8;13H      [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 18:57[0;10m[37m[44m││[1m[37m[44m/Snap            [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mA[9;13H[0;10m[37m[44mory   │    113│Aug  3 18:45││ .bash_history   │    113│A[10;13H      │ 507904│Aug  3 18:45││ log             │ 507904│A[11;13H      │   8192│Aug  3 18:57││ log2            │   8192│A[12;13H      │       │            ││                 │       │ [13;13H      │       │            ││                 │       │ [24;26H[2;10H[30m[47m [37m[44m─────[4;2H[1m[37m[44m/..              [0;10m[37m[44m│[1m[37m[44mUP--DIR[0;10m[37m[44m│[1m[37m[44mAug  3 18:44[5;2H[0;10m[30m[46m/cosa            │   4096│Aug  3 18:51[6;3H[1m[37m[44mlost+found[9C16384[9C7:51[7;2H[0;10m[37m[44m                 │       │            [8;2H                 │       │            [9;3H             [8C   │            [10;3H   [15C      │            [11;3H    [16C    │            [21;2H/cosa  [24;26H[24;19H[39m[49mhome[24;26H[4;2H[30m[46m/..              │UP--DIR│Aug  3 18:44[5;2H[1m[37m[44m/cosa            [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 18:51[21;2H[0;10m[37m[44mUP--DIR[24;26H[4;2H[1m[37m[44m/..              [0;10m[37m[44m│[1m[37m[44mUP--DIR[0;10m[37m[44m│[1m[37m[44mAug  3 18:44[5;2H[0;10m[30m[46m/cosa            │   4096│Aug  3 18:51[21;2H[37m[44m/cosa  [24;26H[2;10H[30m[47m/cosa [4;2H[46m/..              │UP--DIR│Aug  3 18:18[5;2H[1m[37m[44m/.cache          [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 18:23[6;3H.config   [9C 4096[9C8:23[7;2H/.local          [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 18:23[8;2H/Snap            [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 18:57[9;3H[0;10m[37m[44m.bash_history[8C113│Aug  3 18:45[10;3Hlog[15C507904│Aug  3 18:45[11;3Hlog2[15C16384│Aug  3 18:57[21;2HUP--DIR[24;26H[24;19H[39m[49mcosa[24;26H[4;2H[1m[37m[44m/..              [0;10m[37m[44m│[1m[37m[44mUP--DIR[0;10m[37m[44m│[1m[37m[44mAug  3 18:18[5;2H[0;10m[30m[46m/.cache          │   4096│Aug  3 18:23[21;2H[37m[44m/.cache[24;26H[5;2H[1m[37m[44m/.cache          [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 18:23[6;2H[0;10m[30m[46m/.config         │   4096│Aug  3 18:23[21;5H[37m[44monfig[24;26H[6;2H[1m[37m[44m/.config         [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 18:23[7;2H[0;10m[30m[46m/.local          │   4096│Aug  3 18:23[21;4H[37m[44mlocal [24;26H[7;2H[1m[37m[44m/.local          [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 18:23[8;2H[0;10m[30m[46m/Snap            │   4096│Aug  3 18:57[21;3H[37m[44mSnap  [24;26H[2;15H[30m[47m/Snap [4;2H[46m/..              │UP--DIR│Aug  3 18:51[5;3H[1m[37m[44mlost+found[9C16384[11C57[6;2H[0;10m[37m[44m                 │       │            [7;2H                 │       │            [8;2H                 │       │            [9;3H             [8C   │            [10;3H   [15C      │            [11;3H    [15C     │            [21;2HUP--DIR[24;26H[24;19H[39m[49mSnap[24;26H[7;13H[30m[47m                                                        [8;13H ┌──────────────[34m The Midnight Commander [30m──────────────┐ [9;13H │ Do you really want to quit the Midnight Commander? │ [10;13H ├────────────────────────────────────────────────────┤ [11;13H │                  [46m[ [34mY[30mes ][47m  [ [34mN[30mo ]                   │ [12;13H └────────────────────────────────────────────────────┘ [13;13H                                                        [11;35H[23;7H[39m[49mM-t changes quickly the listing mode.[K[23;80H[1;1H[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[1;80H[25;1H[0;10m[39;49m[K[39;49m
+[root@centos-otus Snap]# tou[K[K[Kcd ..
+[root@centos-otus cosa]# ll
+total 516
+-rw-r--r--. 1 root root 507904 Aug  3 18:45 log
+-rw-r--r--. 1 root root  16384 Aug  3 18:57 log2
+drwxr-xr-x. 3 root root   4096 Aug  3 18:57 [0m[01;34mSnap[0m
+[root@centos-otus cosa]# cd..
+bash: cd..: command not found
+[root@centos-otus cosa]# cd /home/o[K
+cosa/       lost+found/ 
+[root@centos-otus cosa]# cd /home/
+cosa/       lost+found/ 
+[root@centos-otus cosa]# cd /home/
+[root@centos-otus home]# touch 1 2 3 4 5 6 6[K7 88 99 100
+[root@centos-otus home]# ll
+total 20
+-rw-r--r--. 1 root root     0 Aug  3 19:00 1
+-rw-r--r--. 1 root root     0 Aug  3 19:00 100
+-rw-r--r--. 1 r

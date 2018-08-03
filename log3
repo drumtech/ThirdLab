@@ -1,0 +1,333 @@
+Script started on Fri 03 Aug 2018 07:33:43 PM MSK
+[root@centos-otus cosa]# pvs
+  PV         VG     Fmt  Attr PSize  PFree 
+  /dev/sda2  centos lvm2 a--  35.00g <3.00g
+  /dev/sdb   centos lvm2 a--  <8.00g     0 
+  /dev/sdc   centos lvm2 a--  <8.00g <7.99g
+  /dev/sdd   centos lvm2 a--  <8.00g <8.00g
+  /dev/sde          lvm2 ---   8.00g  8.00g
+  /dev/sdf          lvm2 ---   8.00g  8.00g
+  /dev/sdg          lvm2 ---   8.00g  8.00g
+  /dev/sdh          lvm2 ---   8.00g  8.00g
+[root@centos-otus cosa]# vgs
+  VG     #PV #LV #SN Attr   VSize   VFree 
+  centos   4   5   1 wz--n- <58.99g 18.98g
+[root@centos-otus cosa]# vgcreate BTR /dev/sde /dev/sdf /dev/sdg /dev/ssdh[K[K[Kdh
+  Volume group "BTR" successfully created
+[root@centos-otus cosa]# lvcreate -L10G -n btrfs BTR
+  Logical volume "btrfs" created.
+[root@centos-otus cosa]# vgs
+  VG     #PV #LV #SN Attr   VSize   VFree 
+  BTR      4   1   0 wz--n-  31.98g 21.98g
+  centos   4   5   1 wz--n- <58.99g 18.98g
+[root@centos-otus cosa]# lvs
+  LV     VG     Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  btrfs  BTR    -wi-a----- 10.00g                                                    
+  home   centos owi-aos---  8.00g                                                    
+  lv_mir centos rwi-aor---  8.00g                                    100.00          
+  root   centos -wi-ao----  8.00g                                                    
+  snap   centos swi-aos---  5.00g      home   0.01                                   
+  swap   centos -wi-ao----  3.00g                                                    
+[root@centos-otus cosa]# mkfs.dt[K[Kbtrfs /dev/BTR/btrfs 
+btrfs-progs v4.9.1
+See http://btrfs.wiki.kernel.org for more information.
+
+Label:              (null)
+UUID:               caee27d8-cb5d-43ce-8653-5cb42d20b982
+Node size:          16384
+Sector size:        4096
+Filesystem size:    10.00GiB
+Block group profiles:
+  Data:             single            8.00MiB
+  Metadata:         DUP               1.00GiB
+  System:           DUP               8.00MiB
+SSD detected:       no
+Incompat features:  extref, skinny-metadata
+Number of devices:  1
+Devices:
+   ID        SIZE  PATH
+    1    10.00GiB  /dev/BTR/btrfs
+
+[root@centos-otus cosa]# nano /etc/f
+favicon.png  filesystems  firewalld/   fstab        
+[root@centos-otus cosa]# nano /etc/fstab 
+[1;25r[0;10m[4l[?7h[?25h[?0c[39;49m[39;49m[0;10m[H[J[0;10;7m  GNU nano 2.3.1              File: /etc/fstab                                  [4;1H[0;10m#[5d# /etc/fstab[6d# Created by anaconda on Fri Aug  3 14:08:51 2018[7d#[8d# Accessible filesystems, by reference, are maintained under '/dev/disk'[9d# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info[10d#[11d/dev/mapper/centos-root /[11;49Hext4    defaults	1 1[12dUUID=b13857cf-c613-45b9-a2fb-74b16d86650c /boot[12;67Hext4    defau$[13;1H/dev/mapper/centos-swap swap[13;49Hswap    defaults	0 0[14d/dev/centos/home[14;25H/home   ext4    defaults[14;57H0 0[15d/dev/centos/lv_mir	/var    ext4    defaults[15;57H0 0[16d/dev/centos/snap[16;25H/home/cosa/Snap ext4 defaults   0 0[23;32H[0;10;7m[ Read 14 lines ][24d^G[0;10m Get Help  [0;10;7m^O[0;10m WriteOut  [0;10;7m^R[0;10m Read File [0;10;7m^Y[0;10m Prev Page [0;10;7m^K[0;10m Cut Text  [0;10;7m^C[0;10m Cur Pos[25d[0;10;7m^X[0;10m Exit[14G[0;10;7m^J[0;10m Justify   [0;10;7m^W[0;10m Where Is  [0;10;7m^V[0;10m Next Page [0;10;7m^U[0;10m UnCut Text[0;10;7m^T[0;10m To Spell[3d[4d[5d[6d[7d[8d[9d[10d[11d[12d[13d[14d[15d[16d[17d[1;71H[0;10;7mModified[17d[0;10m/dev/BTR/bt[23d[K[17;12Hrfs	[17;25H[17;17H s	[17;25H/opt	btrfs	defaults[17;57H0 0 1  1 2[23d[0;10;7mSave modified buffer (ANSWERING "No" WILL DESTROY CHANGES) ?                    [24;1H Y[0;10m Yes[K[25d[0;10;7m N[0;10m No  [14G   [0;10;7m^C[0;10m Cancel[K[23;62H[0;10;7mFile Name to Write: /etc/fstab                              [24d^G[0;10m Get Help[24;21H[0;10;7mM-D[0;10m DOS Format	[0;10;7mM-A[0;10m Append[24;61H[0;10;7mM-B[0;10m Backup File[25d[0;10;7m^C[0;10m Cancel	    [0;10;7mM-M[0;10m Mac Format	[0;10;7mM-P[0;10m Prepend[23;31H[24d[39;49m[0;10m[J[1;71H[0;10;7m        [23;31H[0;10m[1K [0;10;7m[ Wrote 15 lines ][0;10m[K[25;80H[25;1H[root@centos-otus cosa]# mount -a
+[root@centos-otus cosa]# cd /opt/
+[root@centos-otus opt]# ll -lah
+total 20K
+drwxr-xr-x.  1 root root    0 Aug  3 19:36 [0m[01;34m.[0m
+dr-xr-xr-x. 19 root root 4.0K Aug  3 18:44 [01;34m..[0m
+[root@centos-otus opt]# ll -lah[Kumount /dev/BTR/btrfs /opt/
+umount: /opt: target is busy.
+        (In some cases useful info about processes that use
+         the device is found by lsof(8) or fuser(1))
+umount: /opt: target is busy.
+        (In some cases useful info about processes that use
+         the device is found by lsof(8) or fuser(1))
+[root@centos-otus opt]# mc
+[1;25r[4l[25;1H[0;10m[37m[40m[0;10m[39;49m[K[1;25r[4l[0;10m[39m[49m[1;25r[H[J[2;1H[37m[44m┌<─[30m[47m /opt [37m[44m─────────────────────────.[^]>┐
+│[38C│
+│[30m[46m/..              │UP--DIR│Aug  3 18:44[37m[44m│
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+├[38C┤
+│[38C│
+└────────────────────── 10G/10G (99%) ─┘
+[39m[49mHint: Use M-p and M-n to access the command history.
+
+[1m[37m[40m 1[0;10m[30m[46mHelp  [1m[37m[40m 2[0;10m[30m[46mMenu  [1m[37m[40m 3[0;10m[30m[46mView  [1m[37m[40m 4[0;10m[30m[46mEdit  [1m[37m[40m 5[0;10m[30m[46mCopy  [1m[37m[40m 6[0;10m[30m[46mRenMov[1m[37m[40m 7[0;10m[30m[46mMkdir [1m[37m[40m 8[0;10m[30m[46mDelete[1m[37m[40m 9[0;10m[30m[46mPullDn[1m[37m[40m10[0;10m[30m[46mQuit[K[23;80H[1;1H  Left     File     Command     Options     Right[K[2;41H[37m[44m┌<─ /opt ─────────────────────────.[^]>┐[3;2H[1m[33m[44m'n     Name      [0;10m[37m[44m│[1m[33m[44m Size  [0;10m[37m[44m│[1m[33m[44mModify time [0;10m[37m[44m││[1m[33m[44m'n     Name      [0;10m[37m[44m│[1m[33m[44m Size  [0;10m[37m[44m│[1m[33m[44mModify time [0;10m[37m[44m│[4;41H│[1m[37m[44m/..              [0;10m[37m[44m│[1m[37m[44mUP--DIR[0;10m[37m[44m│[1m[37m[44mAug  3 18:44[0;10m[37m[44m│[5;41H│                 │       │            │[6;41H│                 │       │            │[7;41H│                 │       │            │[8;41H│                 │       │            │[9;41H│                 │       │            │[10;41H│                 │       │            │[11;41H│                 │       │            │[12;41H│                 │       │            │[13;41H│                 │       │            │[14;41H│                 │       │            │[15;41H│                 │       │            │[16;41H│                 │       │            │[17;41H│                 │       │            │[18;41H│                 │       │            │[19;41H│                 │       │            │[20;2H──────────────────────────────────────┤├──────────────────────────────────────┤[21;2HUP--DIR                               ││UP--DIR                               │[22;41H└────────────────────── 10G/10G (99%) ─┘[24;77H[39m[49m[1K [37m[44m[^][24;1H[39m[49m[root@centos-otus opt]#[54C[24;25H[2;6H[30m[47m [37m[44m───[4;2H[1m[37m[44m/dev             [0;10m[37m[44m│[1m[37m[44m   3480[0;10m[37m[44m│[1m[37m[44mAug  3 19:35[5;2H/etc             [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 19:33[6;2H/home            [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 19:00[7;2H~lib             [0;10m[37m[44m│[1m[37m[44m      7[0;10m[37m[44m│[1m[37m[44mAug  3 14:09[8;2H~lib64           [0;10m[37m[44m│[1m[37m[44m      9[0;10m[37m[44m│[1m[37m[44mAug  3 14:09[9;2H/lost+found      [0;10m[37m[44m│[1m[37m[44m  16384[0;10m[37m[44m│[1m[37m[44mAug  3 14:08[10;2H/media           [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mApr 11 07:59[11;2H/mnt             [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mApr 11 07:59[12;2H/nevar           [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 14:14[13;2H[0;10m[30m[46m/opt             │      0│Aug  3 19:36[14;2H[1m[37m[44m/proc            [0;10m[37m[44m│[1m[37m[44m      0[0;10m[37m[44m│[1m[37m[44mAug  3 19:49[15;2H/root            [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 15:06[16;2H/run             [0;10m[37m[44m│[1m[37m[44m    720[0;10m[37m[44m│[1m[37m[44mAug  3 19:33[17;2H~sbin            [0;10m[37m[44m│[1m[37m[44m      8[0;10m[37m[44m│[1m[37m[44mAug  3 14:09[18;2H/srv             [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mApr 11 07:59[19;2H/sys             [0;10m[37m[44m│[1m[37m[44m      0[0;10m[37m[44m│[1m[37m[44mAug  3 19:32[21;2H[0;10m[37m[44m/opt   [22;20H 6705M/7935M (84[24;25H[24;19H[39m[49m/]#  [54C[24;23H[2;6H[30m[47mopt [4;2H[46m/..              │UP--DIR│Aug  3 18:44[5;2H[37m[44m                 │       │            [6;2H                 │       │            [7;2H                 │       │            [8;2H                 │       │            [9;2H                 │       │            [10;2H                 │       │            [11;2H                 │       │            [12;2H                 │       │            [13;2H                 │       │            [14;2H                 │       │            [15;2H                 │       │            [16;2H                 │       │            [17;2H                 │       │            [18;2H                 │       │            [19;2H                 │       │            [21;2HUP--DIR[22;20H──── 10G/10G (99[24;23H[24;19H[39m[49mopt]#[54C[24;25H[2;6H[30m[47m [37m[44m───[4;2H[1m[37m[44m/dev             [0;10m[37m[44m│[1m[37m[44m   3480[0;10m[37m[44m│[1m[37m[44mAug  3 19:35[5;2H/etc             [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 19:33[6;2H/home            [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 19:00[7;2H~lib             [0;10m[37m[44m│[1m[37m[44m      7[0;10m[37m[44m│[1m[37m[44mAug  3 14:09[8;2H~lib64           [0;10m[37m[44m│[1m[37m[44m      9[0;10m[37m[44m│[1m[37m[44mAug  3 14:09[9;2H/lost+found      [0;10m[37m[44m│[1m[37m[44m  16384[0;10m[37m[44m│[1m[37m[44mAug  3 14:08[10;2H/media           [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mApr 11 07:59[11;2H/mnt             [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mApr 11 07:59[12;2H/nevar           [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 14:14[13;2H[0;10m[30m[46m/opt             │      0│Aug  3 19:36[14;2H[1m[37m[44m/proc            [0;10m[37m[44m│[1m[37m[44m      0[0;10m[37m[44m│[1m[37m[44mAug  3 19:49[15;2H/root            [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 15:06[16;2H/run             [0;10m[37m[44m│[1m[37m[44m    720[0;10m[37m[44m│[1m[37m[44mAug  3 19:33[17;2H~sbin            [0;10m[37m[44m│[1m[37m[44m      8[0;10m[37m[44m│[1m[37m[44mAug  3 14:09[18;2H/srv             [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mApr 11 07:59[19;2H/sys             [0;10m[37m[44m│[1m[37m[44m      0[0;10m[37m[44m│[1m[37m[44mAug  3 19:32[21;2H[0;10m[37m[44m/opt   [22;20H 6705M/7935M (84[24;25H[24;19H[39m[49m/]#  [54C[24;23H[2;6H[30m[47mopt [4;2H[46m/..              │UP--DIR│Aug  3 18:44[5;2H[37m[44m                 │       │            [6;2H                 │       │            [7;2H                 │       │            [8;2H                 │       │            [9;2H                 │       │            [10;2H                 │       │            [11;2H                 │       │            [12;2H                 │       │            [13;2H                 │       │            [14;2H                 │       │            [15;2H                 │       │            [16;2H                 │       │            [17;2H                 │       │            [18;2H                 │       │            [19;2H                 │       │            [21;2HUP--DIR[22;20H──── 10G/10G (99[24;23H[24;19H[39m[49mopt]#[54C[24;25H[7;13H[30m[47m                                                        [8;13H ┌──────────────[34m The Midnight Commander [30m──────────────┐ [9;13H │ Do you really want to quit the Midnight Commander? │ [10;13H ├────────────────────────────────────────────────────┤ [11;13H │                  [46m[ [34mY[30mes ][47m  [ [34mN[30mo ]                   │ [12;13H └────────────────────────────────────────────────────┘ [13;13H                                                        [11;35H[23;7H[39m[49mVFS coolness: tap enter on a tar file to examine its contents.[23;80H[1;1H[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[1;80H[25;1H[0;10m[39;49m[K[39;49m
+[root@centos-otus opt]# fstrim [K[K[K[K[K[K[Kcd
+[root@centos-otus ~]# /nano[K[K[K[K[Km[Kna[K[Kumount [K[K[K[K[K[K[Kcdmcumount /dev/BTR/btrfs /opt/[K
+umount: /opt: not mounted
+[root@centos-otus ~]# mc
+[1;25r[4l[25;1H[0;10m[37m[40m[0;10m[39;49m[K[1;25r[4l[0;10m[39m[49m[1;25r[H[J[2;1H[37m[44m┌<─[30m[47m ~ [37m[44m────────────────────────────.[^]>┐
+│[38C│
+│[30m[46m/..              │UP--DIR│Aug  3 18:44[37m[44m│
+│[1m[37m[44m/.cache          [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 15:06[0;10m[37m[44m│
+│[1m[37m[44m/.config         [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 15:06[0;10m[37m[44m│
+│[1m[37m[44m/.local          [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 15:06[0;10m[37m[44m│
+│ .bash_history   │   3153│Aug  3 19:32│
+│ .bash_logout    │     18│Dec 29  2013│
+│ .bash_profile   │    176│Dec 29  2013│
+│ .bashrc         │    176│Dec 29  2013│
+│ .cshrc          │    100│Dec 29  2013│
+│ .tcshrc         │    129│Dec 29  2013│
+│ anaconda-ks.cfg │   1698│Aug  3 14:13│
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+├[38C┤
+│[38C│
+└────────────────── 6705M/7935M (84%) ─┘
+[39m[49mHint: Setting the CDPATH variable can save you keystrokes in cd commands.
+
+[1m[37m[40m 1[0;10m[30m[46mHelp  [1m[37m[40m 2[0;10m[30m[46mMenu  [1m[37m[40m 3[0;10m[30m[46mView  [1m[37m[40m 4[0;10m[30m[46mEdit  [1m[37m[40m 5[0;10m[30m[46mCopy  [1m[37m[40m 6[0;10m[30m[46mRenMov[1m[37m[40m 7[0;10m[30m[46mMkdir [1m[37m[40m 8[0;10m[30m[46mDelete[1m[37m[40m 9[0;10m[30m[46mPullDn[1m[37m[40m10[0;10m[30m[46mQuit[K[23;80H[1;1H  Left     File     Command     Options     Right[K[2;41H[37m[44m┌<─ ~ ────────────────────────────.[^]>┐[3;2H[1m[33m[44m'n     Name      [0;10m[37m[44m│[1m[33m[44m Size  [0;10m[37m[44m│[1m[33m[44mModify time [0;10m[37m[44m││[1m[33m[44m'n     Name      [0;10m[37m[44m│[1m[33m[44m Size  [0;10m[37m[44m│[1m[33m[44mModify time [0;10m[37m[44m│[4;41H│[1m[37m[44m/..              [0;10m[37m[44m│[1m[37m[44mUP--DIR[0;10m[37m[44m│[1m[37m[44mAug  3 18:44[0;10m[37m[44m│[5;41H│[1m[37m[44m/.cache          [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 15:06[0;10m[37m[44m│[6;41H│[1m[37m[44m/.config         [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 15:06[0;10m[37m[44m│[7;41H│[1m[37m[44m/.local          [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 15:06[0;10m[37m[44m│[8;41H│ .bash_history   │   3153│Aug  3 19:32│[9;41H│ .bash_logout    │     18│Dec 29  2013│[10;41H│ .bash_profile   │    176│Dec 29  2013│[11;41H│ .bashrc         │    176│Dec 29  2013│[12;41H│ .cshrc          │    100│Dec 29  2013│[13;41H│ .tcshrc         │    129│Dec 29  2013│[14;41H│ anaconda-ks.cfg │   1698│Aug  3 14:13│[15;41H│                 │       │            │[16;41H│                 │       │            │[17;41H│                 │       │            │[18;41H│                 │       │            │[19;41H│                 │       │            │[20;2H──────────────────────────────────────┤├──────────────────────────────────────┤[21;2HUP--DIR                               ││UP--DIR                               │[22;41H└────────────────── 6705M/7935M (84%) ─┘[24;77H[39m[49m[1K [37m[44m[^][24;1H[39m[49m[root@centos-otus ~]#[56C[24;23H[2;5H[30m[47m/[4;2H[1m[37m[44m/home            [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 19:00[5;2H~lib   [14C   7[9C4:09[6;2H~lib64  [13C   9[9C4:09[7;3Hlost+found[9C16384[9C4:08[8;2H/media           [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mApr 11 07:59[9;2H/mnt             [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mApr 11 07:59[10;2H/nevar           [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 14:14[11;2H/opt             [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mApr 11 07:59[12;2H/proc            [0;10m[37m[44m│[1m[37m[44m      0[0;10m[37m[44m│[1m[37m[44mAug  3 19:49[13;2H[0;10m[30m[46m/root            │   4096│Aug  3 15:06[14;2H[1m[37m[44m/run             [0;10m[37m[44m│[1m[37m[44m    720[0;10m[37m[44m│[1m[37m[44mAug  3 19:33[15;2H~sbin            [0;10m[37m[44m│[1m[37m[44m      8[0;10m[37m[44m│[1m[37m[44mAug  3 14:09[16;2H/srv             [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mApr 11 07:59[17;2H/sys             [0;10m[37m[44m│[1m[37m[44m      0[0;10m[37m[44m│[1m[37m[44mAug  3 19:32[18;2H/tmp             [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 19:33[19;2H/usr             [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 14:09[21;2H[0;10m[37m[44m/root  [24;23H[24;19H[39m[49m/[24;23H[13;2H[1m[37m[44m/root            [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 15:06[14;2H[0;10m[30m[46m/run             │    720│Aug  3 19:33[21;4H[37m[44mun [24;23H[13;2H[30m[46m/root            │   4096│Aug  3 15:06[14;2H[1m[37m[44m/run             [0;10m[37m[44m│[1m[37m[44m    720[0;10m[37m[44m│[1m[37m[44mAug  3 19:33[21;4H[0;10m[37m[44moot[24;23H[12;2H[30m[46m/proc            │      0│Aug  3 19:49[13;2H[1m[37m[44m/root            [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 15:06[21;3H[0;10m[37m[44mproc[24;23H[11;2H[30m[46m/opt             │   4096│Apr 11 07:59[12;2H[1m[37m[44m/proc            [0;10m[37m[44m│[1m[37m[44m      0[0;10m[37m[44m│[1m[37m[44mAug  3 19:49[21;3H[0;10m[37m[44mopt [24;23H[2;6H[30m[47mopt [4;2H[46m/..              │UP--DIR│Aug  3 18:44[5;2H[37m[44m                 │       │            [6;2H                 │       │            [7;2H                 │       │            [8;2H                 │       │            [9;2H                 │       │            [10;2H                 │       │            [11;2H                 │       │            [12;2H                 │       │            [13;2H                 │       │            [14;2H                 │       │            [15;2H                 │       │            [16;2H                 │       │            [17;2H                 │       │            [18;2H                 │       │            [19;2H                 │       │            [21;2HUP--DIR[24;23H[24;19H[39m[49mopt]#[54C[24;25H[7;13H[30m[47m                                                        [8;13H ┌──────────────[34m The Midnight Commander [30m──────────────┐ [9;13H │ Do you really want to quit the Midnight Commander? │ [10;13H ├────────────────────────────────────────────────────┤ [11;13H │                  [46m[ [34mY[30mes ][47m  [ [34mN[30mo ]                   │ [12;13H └────────────────────────────────────────────────────┘ [13;13H                                                        [11;35H[23;7H[39m[49mThe homepage of GNU Midnight Commander: http://www.midnight-commander.org/[23;80H[1;1H[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[1;80H[25;1H[0;10m[39;49m[K[39;49m
+[root@centos-otus opt]# nano /etc/fstab 
+[1;25r[0;10m[4l[?7h[?25h[?0c[39;49m[39;49m[0;10m[H[J[0;10;7m  GNU nano 2.3.1              File: /etc/fstab                                  [4;1H[0;10m#[5d# /etc/fstab[6d# Created by anaconda on Fri Aug  3 14:08:51 2018[7d#[8d# Accessible filesystems, by reference, are maintained under '/dev/disk'[9d# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info[10d#[11d/dev/mapper/centos-root /[11;49Hext4    defaults	1 1[12dUUID=b13857cf-c613-45b9-a2fb-74b16d86650c /boot[12;67Hext4    defau$[13;1H/dev/mapper/centos-swap swap[13;49Hswap    defaults	0 0[14d/dev/centos/home[14;25H/home   ext4    defaults[14;57H0 0[15d/dev/centos/lv_mir	/var    ext4    defaults[15;57H0 0[16d/dev/centos/snap[16;25H/home/cosa/Snap ext4 defaults   0 0[17d/dev/BTR/btrfs[17;25H/opt    btrfs   defaults[17;57H1 2[23;32H[0;10;7m[ Read 15 lines ][24d^G[0;10m Get Help  [0;10;7m^O[0;10m WriteOut  [0;10;7m^R[0;10m Read File [0;10;7m^Y[0;10m Prev Page [0;10;7m^K[0;10m Cut Text  [0;10;7m^C[0;10m Cur Pos[25d[0;10;7m^X[0;10m Exit[14G[0;10;7m^J[0;10m Justify   [0;10;7m^W[0;10m Where Is  [0;10;7m^V[0;10m Next Page [0;10;7m^U[0;10m UnCut Text[0;10;7m^T[0;10m To Spell[3d[4d[5d[6d[7d[8d[9d[10d[11d[12d[13d[14d[15d[16d[17d/dev/BT	/bt[23d[K[17;13Hfs	[17;25H/opt	btrfs	default	[1;71H[0;10;7mModified[17;48H[0;10m 1 2[K       compress        1 2[17;49H=lzo[23d[0;10;7mSave modified buffer (ANSWERING "No" WILL DESTROY CHANGES) ?                    [24;1H Y[0;10m Yes[K[25d[0;10;7m N[0;10m No  [14G   [0;10;7m^C[0;10m Cancel[K[23;62H[0;10;7mFile Name to Write: /etc/fstab                              [24d^G[0;10m Get Help[24;21H[0;10;7mM-D[0;10m DOS Format	[0;10;7mM-A[0;10m Append[24;61H[0;10;7mM-B[0;10m Backup File[25d[0;10;7m^C[0;10m Cancel	    [0;10;7mM-M[0;10m Mac Format	[0;10;7mM-P[0;10m Prepend[23;31H[24d[39;49m[0;10m[J[1;71H[0;10;7m        [23;31H[0;10m[1K [0;10;7m[ Wrote 15 lines ][0;10m[K[25;80H[25;1H[root@centos-otus opt]# nano /etc/fstab mc[Kumount /dev/BTR/btrfs /opt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cmc[Kumount /dev/BTR/btrfs /opt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccd[Kmcumount /dev/BTR/btrfs /opt/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cll -lah[Kcd /opt/mount -a
+[root@centos-otus opt]# mc
+[1;25r[4l[25;1H[0;10m[37m[40m[0;10m[39;49m[K[1;25r[4l[0;10m[39m[49m[1;25r[H[J[2;1H[37m[44m┌<─[30m[47m /opt [37m[44m─────────────────────────.[^]>┐
+│[38C│
+│[30m[46m/..              │UP--DIR│Aug  3 18:44[37m[44m│
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+│                 │       │            │
+├[38C┤
+│[38C│
+└────────────────────── 10G/10G (99%) ─┘
+[39m[49mHint: Want your plain shell? Press C-o, and get back to MC with C-o again.
+
+[1m[37m[40m 1[0;10m[30m[46mHelp  [1m[37m[40m 2[0;10m[30m[46mMenu  [1m[37m[40m 3[0;10m[30m[46mView  [1m[37m[40m 4[0;10m[30m[46mEdit  [1m[37m[40m 5[0;10m[30m[46mCopy  [1m[37m[40m 6[0;10m[30m[46mRenMov[1m[37m[40m 7[0;10m[30m[46mMkdir [1m[37m[40m 8[0;10m[30m[46mDelete[1m[37m[40m 9[0;10m[30m[46mPullDn[1m[37m[40m10[0;10m[30m[46mQuit[K[23;80H[1;1H  Left     File     Command     Options     Right[K[2;41H[37m[44m┌<─ /opt ─────────────────────────.[^]>┐[3;2H[1m[33m[44m'n     Name      [0;10m[37m[44m│[1m[33m[44m Size  [0;10m[37m[44m│[1m[33m[44mModify time [0;10m[37m[44m││[1m[33m[44m'n     Name      [0;10m[37m[44m│[1m[33m[44m Size  [0;10m[37m[44m│[1m[33m[44mModify time [0;10m[37m[44m│[4;41H│[1m[37m[44m/..              [0;10m[37m[44m│[1m[37m[44mUP--DIR[0;10m[37m[44m│[1m[37m[44mAug  3 18:44[0;10m[37m[44m│[5;41H│                 │       │            │[6;41H│                 │       │            │[7;41H│                 │       │            │[8;41H│                 │       │            │[9;41H│                 │       │            │[10;41H│                 │       │            │[11;41H│                 │       │            │[12;41H│                 │       │            │[13;41H│                 │       │            │[14;41H│                 │       │            │[15;41H│                 │       │            │[16;41H│                 │       │            │[17;41H│                 │       │            │[18;41H│                 │       │            │[19;41H│                 │       │            │[20;2H──────────────────────────────────────┤├──────────────────────────────────────┤[21;2HUP--DIR                               ││UP--DIR                               │[22;41H└────────────────────── 10G/10G (99%) ─┘[24;77H[39m[49m[1K [37m[44m[^][24;1H[39m[49m[root@centos-otus opt]#[54C[24;25H[2;6H[30m[47m [37m[44m───[4;2H[1m[37m[44m/dev             [0;10m[37m[44m│[1m[37m[44m   3480[0;10m[37m[44m│[1m[37m[44mAug  3 19:35[5;2H/etc             [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 19:33[6;2H/home            [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 19:00[7;2H~lib             [0;10m[37m[44m│[1m[37m[44m      7[0;10m[37m[44m│[1m[37m[44mAug  3 14:09[8;2H~lib64           [0;10m[37m[44m│[1m[37m[44m      9[0;10m[37m[44m│[1m[37m[44mAug  3 14:09[9;2H/lost+found      [0;10m[37m[44m│[1m[37m[44m  16384[0;10m[37m[44m│[1m[37m[44mAug  3 14:08[10;2H/media           [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mApr 11 07:59[11;2H/mnt             [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mApr 11 07:59[12;2H/nevar           [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 14:14[13;2H[0;10m[30m[46m/opt             │      0│Aug  3 19:36[14;2H[1m[37m[44m/proc            [0;10m[37m[44m│[1m[37m[44m      0[0;10m[37m[44m│[1m[37m[44mAug  3 19:49[15;2H/root            [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mAug  3 15:06[16;2H/run             [0;10m[37m[44m│[1m[37m[44m    720[0;10m[37m[44m│[1m[37m[44mAug  3 19:33[17;2H~sbin            [0;10m[37m[44m│[1m[37m[44m      8[0;10m[37m[44m│[1m[37m[44mAug  3 14:09[18;2H/srv             [0;10m[37m[44m│[1m[37m[44m   4096[0;10m[37m[44m│[1m[37m[44mApr 11 07:59[19;2H/sys             [0;10m[37m[44m│[1m[37m[44m      0[0;10m[37m[44m│[1m[37m[44mAug  3 19:32[21;2H[0;10m[37m[44m/opt   [22;20H 6705M/7935M (84[24;25H[24;19H[39m[49m/]#  [54C[24;23H[2;6H[30m[47mopt [4;2H[46m/..              │UP--DIR│Aug  3 18:44[5;2H[37m[44m                 │       │            [6;2H                 │       │            [7;2H                 │       │            [8;2H                 │       │            [9;2H                 │       │            [10;2H                 │       │            [11;2H                 │       │            [12;2H                 │       │            [13;2H                 │       │            [14;2H                 │       │            [15;2H                 │       │            [16;2H                 │       │            [17;2H                 │       │            [18;2H                 │       │            [19;2H                 │       │            [21;2HUP--DIR[22;20H──── 10G/10G (99[24;23H[24;19H[39m[49mopt]#[54C[24;25H[7;13H[30m[47m                                                        [8;13H ┌──────────────[34m The Midnight Commander [30m──────────────┐ [9;13H │ Do you really want to quit the Midnight Commander? │ [10;13H ├────────────────────────────────────────────────────┤ [11;13H │                  [46m[ [34mY[30mes ][47m  [ [34mN[30mo ]                   │ [12;13H └────────────────────────────────────────────────────┘ [13;13H                                                        [11;35H[23;7H[39m[49mThe homepage of GNU Midnight Commander: http://www.midnight-commander.org/[23;80H[1;1H[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[1;80H[25;1H[0;10m[39;49m[K[39;49m
+[root@centos-otus opt]# ll -lah
+total 20K
+drwxr-xr-x.  1 root root    0 Aug  3 19:36 [0m[01;34m.[0m
+dr-xr-xr-x. 19 root root 4.0K Aug  3 18:44 [01;34m..[0m
+[root@centos-otus opt]# cd /
+[root@centos-otus /]# cd /ll -lah
+total 84K
+dr-xr-xr-x.  19 root root 4.0K Aug  3 18:44 [0m[01;34m.[0m
+dr-xr-xr-x.  19 root root 4.0K Aug  3 18:44 [01;34m..[0m
+lrwxrwxrwx.   1 root root    7 Aug  3 14:09 [01;36mbin[0m -> [01;34musr/bin[0m
+dr-xr-xr-x.   6 root root 4.0K Aug  3 19:17 [01;34mboot[0m
+drwxr-xr-x.  20 root root 3.4K Aug  3 19:35 [01;34mdev[0m
+drwxr-xr-x.  75 root root 4.0K Aug  3 19:33 [01;34metc[0m
+drwxr-xr-x.   4 root root 4.0K Aug  3 19:00 [01;34mhome[0m
+lrwxrwxrwx.   1 root root    7 Aug  3 14:09 [01;36mlib[0m -> [01;34musr/lib[0m
+lrwxrwxrwx.   1 root root    9 Aug  3 14:09 [01;36mlib64[0m -> [01;34musr/lib64[0m
+drwx------.   2 root root  16K Aug  3 14:08 [01;34mlost+found[0m
+drwxr-xr-x.   2 root root 4.0K Apr 11 07:59 [01;34mmedia[0m
+drwxr-xr-x.   2 root root 4.0K Apr 11 07:59 [01;34mmnt[0m
+drwxr-xr-x.  19 root root 4.0K Aug  3 14:14 [01;34mnevar[0m
+drwxr-xr-x.   1 root root    0 Aug  3 19:36 [01;34mopt[0m
+dr-xr-xr-x. 154 root root    0 Aug  3  2018 [01;34mproc[0m
+dr-xr-x---.   5 root root 4.0K Aug  3 15:06 [01;34mroot[0m
+drwxr-xr-x.  23 root root  720 Aug  3 19:33 [01;34mrun[0m
+lrwxrwxrwx.   1 root root    8 Aug  3 14:09 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxr-xr-x.   2 root root 4.0K Apr 11 07:59 [01;34msrv[0m
+dr-xr-xr-x.  13 root root    0 Aug  3 19:32 [01;34msys[0m
+drwxrwxrwt.  12 root root 4.0K Aug  3 19:33 [30;42mtmp[0m
+drwxr-xr-x.  13 root root 4.0K Aug  3 14:09 [01;34musr[0m
+drwxr-xr-x.  19 root root 4.0K Aug  3 14:14 [01;34mvar[0m
+[root@centos-otus /]# cd opt/
+[root@centos-otus opt]# du -sh
+16K	.
+[root@centos-otus opt]# cd ..
+[root@centos-otus /]# cd ..du -sh
+du: cannot access ‘./proc/1902/task/1902/fd/4’: No such file or directory
+du: cannot access ‘./proc/1902/task/1902/fdinfo/4’: No such file or directory
+du: cannot access ‘./proc/1902/fd/3’: No such file or directory
+du: cannot access ‘./proc/1902/fdinfo/3’: No such file or directory
+1.3G	.
+[root@centos-otus /]# df -h
+Filesystem                 Size  Used Avail Use% Mounted on
+/dev/mapper/centos-root    7.8G  1.3G  6.2G  17% /
+devtmpfs                   1.6G     0  1.6G   0% /dev
+tmpfs                      1.6G     0  1.6G   0% /dev/shm
+tmpfs                      1.6G  8.6M  1.6G   1% /run
+tmpfs                      1.6G     0  1.6G   0% /sys/fs/cgroup
+/dev/mapper/centos-home    7.8G   37M  7.3G   1% /home
+/dev/mapper/centos-snap    7.8G   37M  7.3G   1% /home/cosa/Snap
+/dev/sda1                  2.9G  118M  2.7G   5% /boot
+/dev/mapper/centos-lv_mir  7.8G  163M  7.2G   3% /var
+tmpfs                      313M     0  313M   0% /run/user/0
+/dev/mapper/BTR-btrfs       10G   17M  8.0G   1% /opt
+[root@centos-otus /]# btr[K[K[Kbtrfs file[K[K[K[K[K[Ks filesystem show
+Label: none  uuid: caee27d8-cb5d-43ce-8653-5cb42d20b982
+	Total devices 1 FS bytes used 384.00KiB
+	devid    1 size 10.00GiB used 2.02GiB path /dev/mapper/BTR-btrfs
+
+[root@centos-otus /]# btrfs filesystem show[Kbtrfs filesystem show[K[K[K[Kresize -2G[Kg /opt/[K
+Resize '/opt' of '-2g'
+[root@centos-otus /]# df -h
+Filesystem                 Size  Used Avail Use% Mounted on
+/dev/mapper/centos-root    7.8G  1.3G  6.2G  17% /
+devtmpfs                   1.6G     0  1.6G   0% /dev
+tmpfs                      1.6G     0  1.6G   0% /dev/shm
+tmpfs                      1.6G  8.6M  1.6G   1% /run
+tmpfs                      1.6G     0  1.6G   0% /sys/fs/cgroup
+/dev/mapper/centos-home    7.8G   37M  7.3G   1% /home
+/dev/mapper/centos-snap    7.8G   37M  7.3G   1% /home/cosa/Snap
+/dev/sda1                  2.9G  118M  2.7G   5% /boot
+/dev/mapper/centos-lv_mir  7.8G  163M  7.2G   3% /var
+tmpfs                      313M     0  313M   0% /run/user/0
+/dev/mapper/BTR-btrfs      8.0G   17M  6.0G   1% /opt
+[root@centos-otus /]# df -hbtrfs filesystem resize -2g /opt[C[1P[1P[1@+[1@4
+Resize '/opt' of '+4g'
+ERROR: unable to resize '/opt': no enough free space
+[root@centos-otus /]# btrfs filesystem resize +4g /opt[Kt[1P[1@2
+Resize '/opt' of '+2g'
+[root@centos-otus /]# df -h
+Filesystem                 Size  Used Avail Use% Mounted on
+/dev/mapper/centos-root    7.8G  1.3G  6.2G  17% /
+devtmpfs                   1.6G     0  1.6G   0% /dev
+tmpfs                      1.6G     0  1.6G   0% /dev/shm
+tmpfs                      1.6G  8.6M  1.6G   1% /run
+tmpfs                      1.6G     0  1.6G   0% /sys/fs/cgroup
+/dev/mapper/centos-home    7.8G   37M  7.3G   1% /home
+/dev/mapper/centos-snap    7.8G   37M  7.3G   1% /home/cosa/Snap
+/dev/sda1                  2.9G  118M  2.7G   5% /boot
+/dev/mapper/centos-lv_mir  7.8G  163M  7.2G   3% /var
+tmpfs                      313M     0  313M   0% /run/user/0
+/dev/mapper/BTR-btrfs       10G   17M  8.0G   1% /opt
+[root@centos-otus /]# df -hbtrfs filesystem resize +2g /opt4[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cdf -h[Kbtrfs filesystem resize -2g /opt
+Resize '/opt' of '-2g'
+[root@centos-otus /]# btrfs filesystem resize -2g /opt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cdf -h[Kbtrfs filesystem resize +2g /opt4[C[C[C[C[C[C[C[1P[1@1
+Resize '/opt' of '+1g'
+[root@centos-otus /]# df -h
+Filesystem                 Size  Used Avail Use% Mounted on
+/dev/mapper/centos-root    7.8G  1.3G  6.2G  17% /
+devtmpfs                   1.6G     0  1.6G   0% /dev
+tmpfs                      1.6G     0  1.6G   0% /dev/shm
+tmpfs                      1.6G  8.6M  1.6G   1% /run
+tmpfs                      1.6G     0  1.6G   0% /sys/fs/cgroup
+/dev/mapper/centos-home    7.8G   37M  7.3G   1% /home
+/dev/mapper/centos-snap    7.8G   37M  7.3G   1% /home/cosa/Snap
+/dev/sda1                  2.9G  118M  2.7G   5% /boot
+/dev/mapper/centos-lv_mir  7.8G  163M  7.2G   3% /var
+tmpfs                      313M     0  313M   0% /run/user/0
+/dev/mapper/BTR-btrfs      9.0G   17M  7.0G   1% /opt
+[root@centos-otus /]# df -hbtrfs filesystem resize +1g /opt[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Ksubvolume create /mnt/raz
+ERROR: not a btrfs filesystem: /mnt
+[root@centos-otus /]# btrfs subvolume create /mnt/raz[1P/raz[1P/raz[1P/razo/razp/razt/raz
+Create subvolume '/opt/raz'
+[root@centos-otus /]# btrfs subvolume create /opt/raz[K[K[Kdva
+Create subvolume '/opt/dva'
+[root@centos-otus /]# btrfs subvolume create /opt/dva[K[K[K[K[K[K[K[K[K
